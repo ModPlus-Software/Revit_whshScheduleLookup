@@ -1,0 +1,107 @@
+﻿<controls:MetroWindow x:Class="whshScheduleLookup.Views.SearchWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+                      d:DataContext ="{d:DesignInstance Type=viewModels1:SearchViewModel, IsDesignTimeCreatable = True}"
+                      xmlns:viewModels1="clr-namespace:whshScheduleLookup.ViewModels"
+                      xmlns:converters1="clr-namespace:whshScheduleLookup.Views.Converters"
+                      SizeToContent="WidthAndHeight" MaxHeight="600"
+                      WindowStartupLocation="CenterScreen" 
+                      MouseEnter="MetroWindow_MouseEnter" MouseLeave="MetroWindow_MouseLeave" 
+                      controls:VisibilityHelper.IsHidden="{Binding SelectionInProgress}"
+                      PreviewKeyDown="TopMostMetroWindow_OnPreviewKeyDown"
+                      ResizeMode="NoResize" ShowTitleBar="False" SaveWindowPosition="True"
+                      >
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters1:IntToBrushConverter x:Key="IntToBrush"></converters1:IntToBrushConverter>
+        </ResourceDictionary>
+    </controls:MetroWindow.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="16" Text="{Binding WindowTitle}" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown"></TextBlock>
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Margin="0,10,0,5"  Text="{Binding LabelName, UpdateSourceTrigger=PropertyChanged}" 
+               HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+
+            <TextBox Grid.Row="1" Name="SearchTextBox" KeyUp="TextBox_KeyUp" ToolTip="{Binding SearchBarTooltip}" 
+                  Text="{Binding EnteredNamesString, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5">
+                <Label Content="{Binding SearchText}" ></Label>
+                <RadioButton GroupName="region" Name="FieldRadioButton" VerticalAlignment="Center" Content="{Binding FieldText}" Margin="10,0,0,0" IsChecked="{Binding IsParameterName}" Click="FieldRadioButton_Click"/>
+                <RadioButton GroupName="region" Name="ColumnRadioButton" VerticalAlignment="Center" Content="{Binding ColumnText}" Margin="10,0,0,0" IsChecked="{Binding IsHeadingName}" Click="ColumnRadioButton_Click"/>
+                <RadioButton GroupName="region" Name="ValueRadioButton" VerticalAlignment="Center" Content="{Binding ValueText}" Margin="10,0,0,0" IsChecked="{Binding IsCellValue}" Click="ValueRadioButton_Click"/>
+
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBox Name="DelimiterTextBox" Text="{Binding Delimeter}" Width="40" MaxHeight="20"
+                             PreviewKeyDown="DelimiterTextBox_PreviewKeyDown" MaxLength="1"></TextBox>
+                    <Label Content="{Binding DelimiterText}" Margin="0,0,50,0" VerticalContentAlignment="Center"/>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <CheckBox Name="CaseCheckBox" Content="{Binding IgnoreCaseText}" IsChecked="{Binding IgnoreCase}" Click="CaseCheckBox_Click" />
+                        <CheckBox Name="SubstringCheckBox" Content="{Binding PartialSearchText}" IsChecked="{Binding PartialSearch}" Click="SubstringCheckBox_Click" />
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Grid.Row="4" Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="Run" Margin="10" MinWidth="70" VerticalAlignment="Bottom" IsEnabled="{Binding SearchFinished}"
+                    Command="{Binding FindSchdeduleCommand}" CommandParameter="{Binding EnteredNamesString}"
+                    IsDefault="True" Click="Run_Click" Content="{Binding FindButtonName}"
+                    ></Button>
+                <Button Name="Clean" Margin="10" MinWidth="70" VerticalAlignment="Bottom" 
+                    Click="Clean_Click" Content="{Binding ResetButtonName}"
+                    ToolTip="Erases text entered into searchbar"></Button>
+                <Button Name="Quit" Margin="10" MinWidth="70" VerticalAlignment="Bottom" 
+                    IsCancel="True" Click="Quit_Click" Content="{Binding CancelButtonName}"></Button>
+            </StackPanel>
+            <Label Grid.Row="5" Name="StateLabel" Content="{Binding StateMessage}" 
+               VerticalContentAlignment="Center" HorizontalAlignment="Center" 
+               FontWeight="Bold" 
+               Foreground="{Binding FoundResultsNumber, Converter={StaticResource IntToBrush}}">
+            </Label>
+            <controls:MetroProgressBar Grid.Row="5" Name="ProgressBar" Value="{Binding Progress}"  
+                                   Foreground="{DynamicResource AccentColorBrush3}" Height="20" VerticalAlignment="Stretch"  
+        >
+            </controls:MetroProgressBar>
+            <!--<StackPanel Margin="0,20,0,0" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center">           
+            <Hyperlink NavigateUri="mailto:sis000@mail.ru?subject=ScheduleLookUp&amp;body=TheMessage"
+                       RequestNavigate="OnNavigate">
+                Send author an e-mail 
+            </Hyperlink>
+                </TextBlock>
+                <TextBox Margin="10,0,0,0" Text="sis000@mail.ru" VerticalContentAlignment="Center"
+                     BorderBrush="White"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Schedule Lookup v."></Label>
+                <Label Padding="-10,0,0,0" Content="{Binding AssemblyVersion}" VerticalContentAlignment="Center"></Label>
+            </StackPanel>-->
+        </Grid>
+    </Grid>
+</controls:MetroWindow>
