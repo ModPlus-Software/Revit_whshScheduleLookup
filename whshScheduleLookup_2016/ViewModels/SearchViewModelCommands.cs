@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Windows;
 using Autodesk.Revit.DB;
 using ModPlusAPI.Windows;
-using whshScheduleLookup.Views;
 using whshScheduleLookup.Model;
 using ResultsWindow = whshScheduleLookup.Views.ResultsWindow;
 
@@ -57,7 +55,7 @@ namespace whshScheduleLookup.ViewModels
                     for (var index = 0; index < total; index++)
                     {
                         var viewScheduleSearchResults = ViewScheduleSearchResult.OfCellValues(AllModelSchedules[index],
-                            true, EnteredNames, SectionType.Body ,PartialSearch, IgnoreCase);
+                            true, EnteredNames, SectionType.Body, PartialSearch, IgnoreCase);
                         if (viewScheduleSearchResults != null && viewScheduleSearchResults.Count == n)
                         {
                             filteredResults.AddRange(viewScheduleSearchResults);
@@ -112,22 +110,14 @@ namespace whshScheduleLookup.ViewModels
                 if (FoundResultsNumber > 0)
                 {
                     FoundResults = foundResults.OrderBy(v => v.ViewScheduleName).ToList();
-                    //FoundSchedules = foundResults.Select(vsr => vsr.ViewScheduleId)
-                    //        .Distinct()
-                    //        .Select(e => RevitModel.Document.GetElement(e))
-                    //        .Cast<ViewSchedule>()
-                    //        .ToList()
-                    //    ;
+
                     Thread newWindowThread = new Thread(() =>
                     {
                         try
                         {
                             ResultsWindow resultsWindow = new ResultsWindow();
                             resultsWindow.DataContext = FoundResults;
-                            //resultsWindow.Topmost = true;
                             resultsWindow.ShowDialog();
-                            //resultsWindow.Topmost = false;
-                            //throw new PluginException("gotcha");
                         }
                         catch (Exception e)
                         {
@@ -140,8 +130,6 @@ namespace whshScheduleLookup.ViewModels
                 }
                 else
                 {
-                    //var s = EnteredNames.Aggregate("\n", (workingSentence, next) => workingSentence + next + "\n");
-                    //TaskDialog.Show("deb", $"Не было найдено таблиц, содержащих одновременно следующее: {s}");
                     StateMessage = _noSchedulesFoundMess;
                     Progress = 0;
                 }

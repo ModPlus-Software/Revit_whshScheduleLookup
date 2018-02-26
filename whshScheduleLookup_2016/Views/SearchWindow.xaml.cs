@@ -6,8 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Navigation;
-using MahApps.Metro.Controls;
-using ModPlusAPI.Windows.Helpers;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using SearchViewModel = whshScheduleLookup.ViewModels.SearchViewModel;
@@ -15,7 +13,7 @@ using SearchViewModel = whshScheduleLookup.ViewModels.SearchViewModel;
 namespace whshScheduleLookup.Views
 {
 
-    public partial class SearchWindow : MetroWindow
+    public partial class SearchWindow 
     {
         private IntPtr _thisWindowIntPtr;
         private readonly IntPtr _revitWindowPtr;
@@ -36,7 +34,7 @@ namespace whshScheduleLookup.Views
         public SearchWindow(SearchViewModel searchViewModel)
         {
             InitializeComponent();
-            this.OnWindowStartUp();
+            
             _thisWindowIntPtr = new WindowInteropHelper(this).Handle;
             DataContext = searchViewModel;
 
@@ -57,7 +55,6 @@ namespace whshScheduleLookup.Views
 
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
-            //Properties.Settings.Default.Save();
             Close();
         }
 
@@ -114,12 +111,6 @@ namespace whshScheduleLookup.Views
         private void ResetProgressBar()
         {
             ProgressBar.Value = 0;
-            //this.StateLabel.Foreground = new SolidColorBrush(Colors.Black);
-            //Binding binding = new Binding();
-            //binding.Path = new PropertyPath("FoundResults.Count");
-            //binding.Mode = BindingMode.OneWay;
-            //binding.Converter = new IntToBrushConverter();
-            //this.StateLabel.SetBinding(Label.ForegroundProperty, binding);
         }
 
         private void DelimiterTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -150,16 +141,6 @@ namespace whshScheduleLookup.Views
         private void FieldRadioButton_Click(object sender, RoutedEventArgs e)
         {
             ResetProgressBar();
-        }
-
-        private void HeaderRadioButton_Click(object sender, RoutedEventArgs e)
-        {
-            ResetProgressBar();
-        }
-
-        private void UIElement_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
         }
     }
 }

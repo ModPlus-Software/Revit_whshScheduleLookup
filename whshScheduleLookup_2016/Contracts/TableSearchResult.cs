@@ -12,11 +12,7 @@ namespace whshScheduleLookup.Contracts
         public abstract int? ColumnNumber { get; set; }
         public abstract int? RowNumber { get; set; }
         public abstract CellType CellType { get; set; }
-
-        //protected TableSearchResult(ViewSchedule viewSchedule, string searchedValue) { }
-
-        //public abstract void CreateBlank();
-
+        
         public virtual bool Create(T table, SectionType sectionType, string searchedValue)
         {
             TableName = table.Name;

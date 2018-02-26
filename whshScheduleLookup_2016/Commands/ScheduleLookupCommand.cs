@@ -18,9 +18,8 @@ namespace whshScheduleLookup.Commands
     [Regeneration(RegenerationOption.Manual)]
     public class ScheduleLookupCommand : IExternalCommand
     {
+        private const string LangItem = "whshScheduleLookup";
         private RevitModel _revitModel;
-        private string _noSchedulesErrMess = "Current project doesn't contain any schedule yet.\nCannot continue.";
-        private string _yesNoCancelWindowTitle = "Notification";
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -33,12 +32,6 @@ namespace whshScheduleLookup.Commands
 
                 _revitModel = new RevitModel(commandData);
 
-                if (_revitModel.IsRus)
-                {
-                    _noSchedulesErrMess = "В данном проекте отсутствуют таблицы!\nПродолжение невозможно.";
-                    _yesNoCancelWindowTitle = "Внимание!";
-                }
-
 //#if DEBUG
                 //var allModelSchedules = DBDocument.FilterInstancesByClass<ViewSchedule>(revitModel.Document,
                 //    methodResult: MethodResult.ReturnNonNull);
@@ -50,8 +43,8 @@ namespace whshScheduleLookup.Commands
 
                 if (allModelSchedules.Count == 0)
                 {
-                    yesNoCancelViewModel.Title = _yesNoCancelWindowTitle;
-                    yesNoCancelViewModel.Message = _noSchedulesErrMess;
+                    yesNoCancelViewModel.Title = Language.GetItem(LangItem, "h8");
+                    yesNoCancelViewModel.Message = Language.GetItem(LangItem, "h7");
                     yesNoCancelWindow.ShowDialog();
                     return Result.Succeeded;
                 }

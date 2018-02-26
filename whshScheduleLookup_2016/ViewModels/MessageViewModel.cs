@@ -1,16 +1,19 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ModPlusAPI;
 
 namespace whshScheduleLookup.ViewModels
 {
     public class MessageViewModel : INotifyPropertyChanged
     {
+        private const string LangItem = "whshScheduleLookup";
+
         private string _message;
         private string _title;
 
-        public string OkButtonName { get; set; } = "ОК";
-        public string NoButtonName { get; set; } = "Нет";
-        public string CancelButtonName { get; set; } = "Отмена";
+        public string OkButtonName { get; set; } = Language.GetItem(LangItem, "ok");
+        public string NoButtonName { get; set; } = Language.GetItem(LangItem, "no");
+        public string CancelButtonName { get; set; } = Language.GetItem(LangItem, "cancel");
         public bool OkButtonVisibility { get; set; } = true;
         public bool NoButtonVisibility { get; set; }
         public bool CancelButtonVisibility { get; set; } 

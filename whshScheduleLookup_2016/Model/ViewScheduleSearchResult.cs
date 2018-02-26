@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
-using ModPlusAPI.Windows;
+using ModPlusAPI;
 
 namespace whshScheduleLookup.Model
 {
     public class ViewScheduleSearchResult
     {
+        private const string LangItem = "whshScheduleLookup";
         private static Dictionary<string, string> _paramsNamesAndKeySchedulesNames;
         private int? _columnNumber;
         private int? _rowNumber;
@@ -81,49 +81,70 @@ namespace whshScheduleLookup.Model
             }
             if (Properties.Settings.Default.PropertyFriendlyNamesEN.Count == 0)
             {
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SearchedValue), "Searched string:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FoundIn), "Found in name/value:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ViewScheduleName), "Containing schedule name:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsKeySchedule), "Is a key schedule?");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ViewScheduleId), "Schedule ID:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FieldName), "Field name:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FieldParameterName), "Field parameter name:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ColumnHeadingName), "Column heading name:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FromKeyScheduleNamed), "From key schedule named:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(KeyScheduleParameterName), "Key schedule parameter name:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ColumnNumber), "Column number:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsHiddenColumn), "Is column hidden?");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(RowNumber), "Row number:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SectionType), "Table section:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(CellType), "Cell type:");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsHeadingsRow), "Is headings row?");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SearchExecuted), "Searched executed?");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(Found), "Value was found?");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(PartialSearch), "Substring searched?");
-                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IgnoreCase), "Case ignored?");
-                if (viewSchedule.Document.Application.Language == LanguageType.Russian)
-                {
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(SearchedValue)] = "Искомое значение:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(FoundIn)] = "Найдено внутри:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(ViewScheduleName)] = "Имя содержащей таблицы:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(IsKeySchedule)] = "Ключевая спецификация?";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(ViewScheduleId)] = "ID спецификации:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(FieldName)] = "Имя поля:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(FieldParameterName)] = "Имя параметра:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(ColumnHeadingName)] = "Имя заголовка столбца:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(FromKeyScheduleNamed)] = "Из ключевой спецификации:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(KeyScheduleParameterName)] = "Ключевой параметр:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(ColumnNumber)] = "Номер столбца:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(IsHiddenColumn)] = "Столбец скрыт?";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(RowNumber)] = "Номер строки:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(SectionType)] = "Область таблицы:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(CellType)] = "Тип ячейки:";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(IsHeadingsRow)] = "Найдено в заголовках?";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(SearchExecuted)] = "Поиск выполнен?";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(Found)] = "Значение найдено?";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(PartialSearch)] = "Найдена подстрока?";
-                    Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(IgnoreCase)] = "С учётом регистра?";
-                }
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SearchedValue), Language.GetItem(LangItem, "sr1"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FoundIn), Language.GetItem(LangItem, "sr2"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ViewScheduleName), Language.GetItem(LangItem, "sr3"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsKeySchedule), Language.GetItem(LangItem, "sr4"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ViewScheduleId), Language.GetItem(LangItem, "sr5"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FieldName), Language.GetItem(LangItem, "sr6"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FieldParameterName), Language.GetItem(LangItem, "sr7"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ColumnHeadingName), Language.GetItem(LangItem, "sr8"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FromKeyScheduleNamed), Language.GetItem(LangItem, "sr9"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(KeyScheduleParameterName), Language.GetItem(LangItem, "sr10"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ColumnNumber), Language.GetItem(LangItem, "sr11"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsHiddenColumn), Language.GetItem(LangItem, "sr12"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(RowNumber), Language.GetItem(LangItem, "sr13"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SectionType), Language.GetItem(LangItem, "sr14"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(CellType), Language.GetItem(LangItem, "sr15"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsHeadingsRow), Language.GetItem(LangItem, "sr16"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SearchExecuted), Language.GetItem(LangItem, "sr17"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(Found), Language.GetItem(LangItem, "sr18"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(PartialSearch), Language.GetItem(LangItem, "sr19"));
+                Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IgnoreCase), Language.GetItem(LangItem, "sr20"));
+
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SearchedValue), "Searched string:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FoundIn), "Found in name/value:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ViewScheduleName), "Containing schedule name:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsKeySchedule), "Is a key schedule?");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ViewScheduleId), "Schedule ID:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FieldName), "Field name:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FieldParameterName), "Field parameter name:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ColumnHeadingName), "Column heading name:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(FromKeyScheduleNamed), "From key schedule named:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(KeyScheduleParameterName), "Key schedule parameter name:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(ColumnNumber), "Column number:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsHiddenColumn), "Is column hidden?");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(RowNumber), "Row number:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SectionType), "Table section:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(CellType), "Cell type:");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IsHeadingsRow), "Is headings row?");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(SearchExecuted), "Searched executed?");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(Found), "Value was found?");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(PartialSearch), "Substring searched?");
+                //Properties.Settings.Default.PropertyFriendlyNamesEN.Add(nameof(IgnoreCase), "Case ignored?");
+                //if (viewSchedule.Document.Application.Language == LanguageType.Russian)
+                //{
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(SearchedValue)] = "Искомое значение:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(FoundIn)] = "Найдено внутри:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(ViewScheduleName)] = "Имя содержащей таблицы:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(IsKeySchedule)] = "Ключевая спецификация?";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(ViewScheduleId)] = "ID спецификации:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(FieldName)] = "Имя поля:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(FieldParameterName)] = "Имя параметра:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(ColumnHeadingName)] = "Имя заголовка столбца:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(FromKeyScheduleNamed)] = "Из ключевой спецификации:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(KeyScheduleParameterName)] = "Ключевой параметр:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(ColumnNumber)] = "Номер столбца:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(IsHiddenColumn)] = "Столбец скрыт?";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(RowNumber)] = "Номер строки:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(SectionType)] = "Область таблицы:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(CellType)] = "Тип ячейки:";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(IsHeadingsRow)] = "Найдено в заголовках?";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(SearchExecuted)] = "Поиск выполнен?";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(Found)] = "Значение найдено?";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(PartialSearch)] = "Найдена подстрока?";
+                    //Properties.Settings.Default.PropertyFriendlyNamesEN[nameof(IgnoreCase)] = "С учётом регистра?";
+                //}
             }
         }
 

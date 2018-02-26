@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 using Autodesk.Revit.DB;
 using ModPlusAPI;
 using whshScheduleLookup.Model;
@@ -10,6 +9,7 @@ namespace whshScheduleLookup.ViewModels
 {
     public partial class SearchViewModel : INotifyPropertyChanged
     {
+        private const string LangItem = "whshScheduleLookup";
         #region Static data
 
         private readonly string _emptySearchErrMess = " nothing entered yet";
@@ -42,7 +42,6 @@ namespace whshScheduleLookup.ViewModels
         private bool _selectionInProgress;
         private string _stateMessage;
         private bool _solutionExists;
-        BooleanToVisibilityConverter _booleanToVisibility = new BooleanToVisibilityConverter();
 
         private List<string> _enteredNames;
         private string _enteredNamesString;
@@ -82,7 +81,7 @@ namespace whshScheduleLookup.ViewModels
             set
             {
                 //if (value == _stateMessage) return;
-                _stateMessage = StatusText + value;
+                _stateMessage = StatusText + " " + value;
                 OnPropertyChanged();
             }
         }
@@ -113,40 +112,34 @@ namespace whshScheduleLookup.ViewModels
         public SearchViewModel(RevitModel revitModel)
         {
             this.RevitModel = revitModel;
-            if (revitModel.IsRus)
-            {
-                _emptySearchErrMess = "ничего не введено для поиска";
-                _pressFindMess = "нажмите \"Найти\" для продолжения";
-                _refreshSearchMess = "Нажмите \"Найти\" для актуализации!";
-                _noSchedulesFoundMess = "не найдено подходящих таблиц!";
-                _schedulesNumberFoundMess = " таблиц найдено: ";
+            //if (revitModel.IsRus)
+            //{
+            _emptySearchErrMess = Language.GetItem(LangItem, "h10");// "ничего не введено для поиска";
+            _pressFindMess = Language.GetItem(LangItem, "h11"); //"нажмите \"Найти\" для продолжения";
+            _refreshSearchMess = Language.GetItem(LangItem, "h12"); //"Нажмите \"Найти\" для актуализации!";
+            _noSchedulesFoundMess = Language.GetItem(LangItem, "h13"); //"не найдено подходящих таблиц!";
+            _schedulesNumberFoundMess = Language.GetItem(LangItem, "h14"); //" таблиц найдено: ";
 
-                WindowTitle = "ПОИСК В ТАБЛИЦАХ";
-                AddText = "\nкоторые должны присутствовать в таблице";
-                FindButtonName = "Найти";
-                ResetButtonName = "Очистить";
-                CancelButtonName = "Отмена";
-                DelimiterText = "символ-\nразделитель"; //
-                PartialSearchText = "подстрока";
-                IgnoreCaseText = "учитывать регистр";
-                SearchText = "Искать";
-                FieldText = "поле";
-                ColumnText = "заголовок";
-                ValueText = "значение";
-                HeaderText = "шапка";
-                PercentCompleteMess = "% обработано...";
-                StatusText = "СТАТУС: ";
-                SearchBarTooltip = $"Нажмите пробел дважды, чтобы вставить \"{Delimeter}\"";
-            }
+            WindowTitle = Language.GetItem(LangItem, "h15"); //"ПОИСК В ТАБЛИЦАХ";
+            AddText = Language.GetItem(LangItem, "h16"); //"\nкоторые должны присутствовать в таблице";
+            FindButtonName = Language.GetItem(LangItem, "find"); //"Найти";
+            ResetButtonName = Language.GetItem(LangItem, "clean"); //"Очистить";
+            CancelButtonName = Language.GetItem(LangItem, "cancel"); //"Отмена";
+            DelimiterText = Language.GetItem(LangItem, "h17"); //"символ-\nразделитель"; //
+            PartialSearchText = Language.GetItem(LangItem, "h18"); //"подстрока";
+            IgnoreCaseText = Language.GetItem(LangItem, "h19"); //"учитывать регистр";
+            SearchText = Language.GetItem(LangItem, "h20"); //"Искать";
+            FieldText = Language.GetItem(LangItem, "h21"); //"поле";
+            ColumnText = Language.GetItem(LangItem, "h22"); //"заголовок";
+            ValueText = Language.GetItem(LangItem, "h23"); //"значение";
+            HeaderText = Language.GetItem(LangItem, "h24"); //"шапка";
+            PercentCompleteMess = Language.GetItem(LangItem, "h25"); //"% обработано...";
+            StatusText = Language.GetItem(LangItem, "h26"); //"СТАТУС: ";
+            SearchBarTooltip = Language.GetItem(LangItem, "h27") + "\"" + Delimeter + "\""; //$"Нажмите пробел дважды, чтобы вставить \"{Delimeter}\"";
+            //}
             StateMessage = _emptySearchErrMess;
             SearchFinished = true;
-
-            //IsParameterName = Properties.Settings.Default.SearchParams;
-            //IsHeadingName = Properties.Settings.Default.SearchColumns;
-            //IsCellValue = Properties.Settings.Default.SearchCells;
-            //IgnoreCase = Properties.Settings.Default.IgnoreCase;
-            //PartialSearch = Properties.Settings.Default.PartialSearch;
-            //Delimeter = Properties.Settings.Default.DelimeterSymbol;
+            
             IsParameterName = !bool.TryParse(
                 UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "whshScheduleLookup", nameof(IsParameterName)),
                 out var b) || b; // default - true
@@ -234,7 +227,7 @@ namespace whshScheduleLookup.ViewModels
                 _isParameterName = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings, 
+                UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings,
                     "whshScheduleLookup", nameof(IsParameterName), value.ToString(), true);
             }
         }
@@ -250,16 +243,25 @@ namespace whshScheduleLookup.ViewModels
             {
                 StateMessage = _emptySearchErrMess;
             }
-            if (IsParameterName) { LabelName = $"Enter field (or parameter) names delimited by \"{Delimeter}\" \nthat a table should contain"; }
-            if (IsHeadingName) { LabelName = $"Enter heading names delimited by \"{Delimeter}\" \nthat a table should contain"; }
-            if (IsCellValue) { LabelName = $"Enter cell values delimited by \"{Delimeter}\" \nthat a table should contain"; }
-            LabelName = $"Enter names or values delimited by \"{Delimeter}\" that a table should contain";
-            if (RevitModel.IsRus)
-            {
-                if (IsParameterName) { LabelName = $"Введите через символ \"{Delimeter}\" названия параметров," + AddText; }
-                if (IsHeadingName) { LabelName = $"Введите через \"{Delimeter}\" названия столбцов," + AddText; }
-                if (IsCellValue) { LabelName = $"Введите через \"{Delimeter}\" значения ячеек," + AddText; }
-            }
+            //if (IsParameterName) { LabelName = $"Enter field (or parameter) names delimited by \"{Delimeter}\" \nthat a table should contain"; }
+            //if (IsHeadingName) { LabelName = $"Enter heading names delimited by \"{Delimeter}\" \nthat a table should contain"; }
+            //if (IsCellValue) { LabelName = $"Enter cell values delimited by \"{Delimeter}\" \nthat a table should contain"; }
+            //LabelName = $"Enter names or values delimited by \"{Delimeter}\" that a table should contain";
+            //if (RevitModel.IsRus)
+            //{
+                if (IsParameterName)
+                {
+                    LabelName = Language.GetItem(LangItem, "h28") + $" \"{Delimeter}\",\n" + AddText;
+                }
+                if (IsHeadingName)
+                {
+                    LabelName = Language.GetItem(LangItem, "h29") + $" \"{Delimeter}\",\n"  + AddText;
+                }
+                if (IsCellValue)
+                {
+                    LabelName = Language.GetItem(LangItem, "h30") + $" \"{Delimeter}\",\n" + AddText;
+                }
+            //}
         }
 
         public string Delimeter
@@ -408,7 +410,7 @@ namespace whshScheduleLookup.ViewModels
                 }
                 else
                 {
-                    StateMessage = _schedulesNumberFoundMess + _foundResults.Count;
+                    StateMessage = _schedulesNumberFoundMess + " " + _foundResults.Count;
                     //ExpanderState = System.Windows.Visibility.Visible;
                 }
             }

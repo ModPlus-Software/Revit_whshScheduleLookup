@@ -1,13 +1,14 @@
 ﻿using System;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using ModPlusAPI;
 using ModPlusAPI.Windows;
-using OperationCanceledException = Autodesk.Revit.Exceptions.OperationCanceledException;
 
 namespace whshScheduleLookup.Model
 {
     public class ExternalCommand : IExternalEventHandler
     {
+        private const string LangItem = "whshScheduleLookup";
         private Action _doAction;
         private Action<object> _postAction;
         private Func<object> _doFunc;
@@ -44,20 +45,15 @@ namespace whshScheduleLookup.Model
             if (_doAction != null)
             {
                 if (_doc == null) _doc = app.ActiveUIDocument.Document;
-                //using (Transaction t = new Transaction(doc, tName))
-                //{
-                //    t.Start();
+                
                     try
                     {
                         _doAction();
-                        //t.Commit();
                     }
                     catch (OperationCanceledException)
                     {
-                        //t.RollBack();
-                        MessageBox.Show("Внимание!", "Операция была прервана!\nИзменения отменены.", MessageBoxIcon.Alert);
+                        MessageBox.Show(Language.GetItem(LangItem, "h9"), MessageBoxIcon.Alert);
                     }
-                //}
             }
             _doAction = null;
             if (_doFunc != null)
@@ -76,7 +72,7 @@ namespace whshScheduleLookup.Model
                     catch (OperationCanceledException)
                     {
                         t.RollBack();
-                        MessageBox.Show("Внимание!", "Операция была прервана!\nИзменения отменены.", MessageBoxIcon.Alert);
+                        MessageBox.Show(Language.GetItem(LangItem, "h9"), MessageBoxIcon.Alert);
                     }
                 }
                 _postAction(result);

@@ -1,16 +1,16 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using ModPlusAPI.Windows.Helpers;
+﻿using System.Windows.Input;
 using whshScheduleLookup.ViewModels;
 
 namespace whshScheduleLookup.Views
 {
     public partial class ResultDetailsWindow
     {
+        private const string LangItem = "whshScheduleLookup";
+
         public ResultDetailsWindow(ResultDetailsViewModel vm)
         {
             InitializeComponent();
-            this.OnWindowStartUp();
+            Title = ModPlusAPI.Language.GetItem(LangItem, "h4");
             DataContext = vm;
         }
 
@@ -20,11 +20,6 @@ namespace whshScheduleLookup.Views
             {
                 Close();
             }
-        }
-
-        private void UIElement_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
         }
     }
 }

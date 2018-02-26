@@ -1,44 +1,24 @@
-﻿<controls:MetroWindow x:Class="whshScheduleLookup.Views.ResultsWindow"
+﻿<mpc:BaseMetroWindow x:Class="whshScheduleLookup.Views.ResultsWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:viewModels1="clr-namespace:whshScheduleLookup.ViewModels"
+                      xmlns:viewModels="clr-namespace:whshScheduleLookup.ViewModels"
+                      xmlns:mpc="clr-namespace:ModPlusAPI.Windows.Mpc;assembly=ModPlusAPI"
                       mc:Ignorable="d"
-                      d:DataContext ="{d:DesignInstance Type=viewModels1:ResultsViewModel, IsDesignTimeCreatable = True}"
-                      Title="Results"
-                      SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
-                      MinWidth="300" MinHeight="200" ShowTitleBar="False" ShowMinButton="False"
-                      Loaded="ResultsWindow_OnLoaded" ResizeMode="CanResizeWithGrip" SaveWindowPosition="True"
-                      >
-
-    <controls:MetroWindow.Resources>
+                      d:DataContext ="{d:DesignInstance Type=viewModels:ResultsViewModel, IsDesignTimeCreatable = True}"
+                      SizeToContent="WidthAndHeight" MinWidth="300" MinHeight="200" 
+                      Loaded="ResultsWindow_OnLoaded" ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/whshScheduleLookup" />
         </ResourceDictionary>
-    </controls:MetroWindow.Resources>
-    <Grid Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" FontSize="16" Text="РЕЗУЛЬТАТЫ ПОИСКА" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown"></TextBlock>
-        <DataGrid Grid.Row="1" Margin="5" Name="ResultsGrid"  ItemsSource="{Binding}" MouseDoubleClick="DataGrid_MouseDoubleClick"
-                  IsReadOnly="True" ToolTip="Двойной клик по строке открывает окно подробностей" BorderThickness="1"
-                  BorderBrush="{DynamicResource AccentColorBrush}">
-        <!--<DataGrid.Columns>
-            <DataGridTextColumn Header="Имя таблицы" Binding="{Binding Path=ViewScheduleName}"></DataGridTextColumn>
-            <DataGridTextColumn Header="Найденое значение" Binding="{Binding Path=SearchedValue}"></DataGridTextColumn>
-        </DataGrid.Columns>-->
+    </Window.Resources>
+    <DataGrid Margin="0" Name="ResultsGrid"  ItemsSource="{Binding}" MouseDoubleClick="DataGrid_MouseDoubleClick"
+              IsReadOnly="True" ToolTip="{Binding Source={StaticResource Lang}, XPath=h3}" BorderThickness="1"
+              BorderBrush="{DynamicResource AccentColorBrush}">
     </DataGrid>
-</Grid>
-
-</controls:MetroWindow>
+</mpc:BaseMetroWindow>
