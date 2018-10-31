@@ -35,7 +35,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ModPlusStyle">
-      <HintPath>..\..\..\..\ModPlus\Extensions\ModPlusStyle.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlusStyle.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -92,12 +92,6 @@
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\Properties\AssemblyInfoCommon.cs">
       <Link>Properties\AssemblyInfoCommon.cs</Link>
-    </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Properties\Settings.Designer.cs">
-      <Link>Properties\Settings.Designer.cs</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\ViewModels\MessageViewModel.cs">
       <Link>ViewModels\MessageViewModel.cs</Link>
@@ -171,13 +165,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\whshScheduleLookup_2016\Properties\Settings.settings">
-      <Link>Properties\Settings.settings</Link>
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

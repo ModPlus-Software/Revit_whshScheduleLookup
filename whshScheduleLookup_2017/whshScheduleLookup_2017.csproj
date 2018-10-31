@@ -35,7 +35,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ModPlusStyle">
-      <HintPath>..\..\..\..\ModPlus\Extensions\ModPlusStyle.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ModPlus\Extensions\ModPlusStyle.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -150,11 +150,6 @@
     <Resource Include="..\whshScheduleLookup_2016\Resources\whshScheduleLookup_32x32.png">
       <Link>Resources\whshScheduleLookup_32x32.png</Link>
     </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\whshScheduleLookup_2016\Properties\Settings.settings">
-      <Link>Properties\Settings.settings</Link>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
