@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using ModPlusAPI.Windows.Helpers;
 using whshScheduleLookup.ViewModels;
 
 namespace whshScheduleLookup.Views
@@ -10,7 +9,6 @@ namespace whshScheduleLookup.Views
         public YesNoCancelWindow()
         {
             InitializeComponent();
-            this.OnWindowStartUp();
         }
 
         public YesNoCancelWindow(MessageViewModel viewModel)

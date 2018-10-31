@@ -41,31 +41,12 @@ namespace whshScheduleLookup.Views
             Process[] processes = Process.GetProcessesByName("Revit");
             if (0 < processes.Length) _revitWindowPtr = processes[0].MainWindowHandle;
         }
-
-        private void MetroWindow_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Opacity = 1;
-        }
-
-        private void MetroWindow_MouseLeave(object sender, MouseEventArgs e)
-        {
-            //this.Opacity = 0.1;
-            Opacity = 1;
-        }
-
+        
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void TopMostMetroWindow_OnPreviewKeyDown(object sender, KeyEventArgs keyEventArgs)
-        {
-            if (keyEventArgs.Key == Key.Escape)
-            {
-                Close();
-            }
-            //ResetProgressBar();
-        }
 
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {

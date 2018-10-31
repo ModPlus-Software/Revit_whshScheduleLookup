@@ -1,32 +1,34 @@
-﻿<mpc:BaseMetroWindow x:Class="whshScheduleLookup.Views.YesNoCancelWindow"
+﻿<mps:ModPlusWindow x:Class="whshScheduleLookup.Views.YesNoCancelWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance Type=viewModels:MessageViewModel, IsDesignTimeCreatable=True}"
                       xmlns:viewModels="clr-namespace:whshScheduleLookup.ViewModels"
-                      xmlns:mpc="clr-namespace:ModPlusAPI.Windows.Mpc;assembly=ModPlusAPI"
-                      SizeToContent="WidthAndHeight" 
-                      MaxWidth="400" ShowTitleBar="False" Title="{Binding Path=Title}"
+                      xmlns:mps="https://modplus.org/winfx/xaml/controls"
+                      SizeToContent="WidthAndHeight" CloseByEscape="False"
+                      MaxWidth="400" ShowTitleBar="False" ShowCloseButton="False"
+                   Title="{Binding Path=Title}"
                       PreviewKeyUp="MetroWindow_PreviewKeyUp">
 
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ModPlusStyle;component/Styles/Controls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
         </ResourceDictionary>
     </Window.Resources>
     <StackPanel HorizontalAlignment="Center">
-        <TextBlock Margin="10" Text="{Binding Message}" FontSize="20" FontWeight="Bold" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+        <TextBlock Margin="{DynamicResource ModPlusDefaultMargin}"
+                   Text="{Binding Message}" FontSize="20" FontWeight="Bold" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Name="Yes" Visibility="{Binding OkButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10" Width="100" Content="{Binding OkButtonName}" IsDefault="True" Click="Ok_Click"/>
+                    Content="{Binding OkButtonName}" IsDefault="True" Click="Ok_Click"/>
             <Button Name="No" Visibility="{Binding NoButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False" 
-                    Margin="10" Width="100" Content="{Binding NoButtonName}" Click="No_Click"/>
+                    Content="{Binding NoButtonName}" Click="No_Click"/>
             <Button Name="Cancel" Visibility="{Binding CancelButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                    Margin="10" Width="100" Content="{Binding CancelButtonName}" IsCancel="True" Click="Cancel_Click"/>
+                    Content="{Binding CancelButtonName}" IsCancel="True" Click="Cancel_Click"/>
         </StackPanel>
     </StackPanel>
-</mpc:BaseMetroWindow>
+</mps:ModPlusWindow>

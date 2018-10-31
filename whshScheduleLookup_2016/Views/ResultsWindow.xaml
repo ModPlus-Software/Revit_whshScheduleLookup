@@ -1,10 +1,10 @@
-﻿<mpc:BaseMetroWindow x:Class="whshScheduleLookup.Views.ResultsWindow"
+﻿<mps:ModPlusWindow x:Class="whshScheduleLookup.Views.ResultsWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:viewModels="clr-namespace:whshScheduleLookup.ViewModels"
-                      xmlns:mpc="clr-namespace:ModPlusAPI.Windows.Mpc;assembly=ModPlusAPI"
+                      xmlns:mps="https://modplus.org/winfx/xaml/controls"
                       mc:Ignorable="d"
                       d:DataContext ="{d:DesignInstance Type=viewModels:ResultsViewModel, IsDesignTimeCreatable = True}"
                       SizeToContent="WidthAndHeight" MinWidth="300" MinHeight="200" 
@@ -12,13 +12,13 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/ModPlusAPI;component/Windows/WinResources/Styles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ModPlusStyle;component/Styles/Controls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <XmlDataProvider x:Key="Lang" Source="E:/ModPlus/Languages/en-US.xml" XPath="ModPlus/whshScheduleLookup" />
+            <XmlDataProvider x:Key="Lang" Source="D:/ModPlus/Languages/en-US.xml" XPath="ModPlus/whshScheduleLookup" />
         </ResourceDictionary>
     </Window.Resources>
-    <DataGrid Margin="0" Name="ResultsGrid"  ItemsSource="{Binding}" MouseDoubleClick="DataGrid_MouseDoubleClick"
-              IsReadOnly="True" ToolTip="{Binding Source={StaticResource Lang}, XPath=h3}" BorderThickness="1"
-              BorderBrush="{DynamicResource AccentColorBrush}">
+    <DataGrid Name="ResultsGrid"  ItemsSource="{Binding}" MouseDoubleClick="DataGrid_MouseDoubleClick"
+              AutoGenerateColumns="True" mps:DataGridAssist.CellPadding="0"
+              IsReadOnly="True" ToolTip="{Binding Source={StaticResource Lang}, XPath=h3}">
     </DataGrid>
-</mpc:BaseMetroWindow>
+</mps:ModPlusWindow>
