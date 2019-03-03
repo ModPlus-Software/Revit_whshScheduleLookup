@@ -25,7 +25,7 @@ namespace whshScheduleLookup.Commands
         {
             try
             {
-                Statistic.SendCommandStarting(new Interface());
+                Statistic.SendCommandStarting(new ModPlusConnector());
 
                 MessageViewModel yesNoCancelViewModel = new MessageViewModel();
                 YesNoCancelWindow yesNoCancelWindow = new YesNoCancelWindow(yesNoCancelViewModel);

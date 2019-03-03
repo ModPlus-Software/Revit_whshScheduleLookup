@@ -25,7 +25,8 @@ namespace whshScheduleLookup.Model
         public string ColumnHeadingName { get; set; } = string.Empty;
         public string FromKeyScheduleNamed { get; set; } = string.Empty;
         public string KeyScheduleParameterName { get; set; } = string.Empty;
-        public int? ColumnNumber {
+        public int? ColumnNumber
+        {
             get => _columnNumber;
             set { if (value != null) { _columnNumber = value + 1; } }
         }
@@ -70,7 +71,11 @@ namespace whshScheduleLookup.Model
                         }
                         if (!_paramsNamesAndKeySchedulesNames.ContainsKey(ksParamName))
                         {
+#if R2016 || R2017 || R2018
                             _paramsNamesAndKeySchedulesNames.Add(ksParamName, docViewSchedule.ViewName);
+#else
+                            _paramsNamesAndKeySchedulesNames.Add(ksParamName, docViewSchedule.Name);
+#endif
                         }
                     }
                 }
@@ -288,13 +293,17 @@ namespace whshScheduleLookup.Model
                                 res.FieldParameterName = field.FieldType.ToString();
                             }
                         }
-                        
+
                         if (paramId != ElementId.InvalidElementId)
                         {
                             res.FieldParameterName = GetNameById(viewSchedule.Document, fieldParamId);
                             if (paramId.IntegerValue == (int)BuiltInParameter.REF_TABLE_ELEM_NAME)
                             {
+#if R2016 || R2017 || R2018
                                 res.FromKeyScheduleNamed = viewSchedule.ViewName;
+#else
+                                res.FromKeyScheduleNamed = viewSchedule.Name;
+#endif
                                 res.KeyScheduleParameterName = viewSchedule.KeyScheduleParameterName;
                                 res.FieldParameterName = viewSchedule.KeyScheduleParameterName;
                             }

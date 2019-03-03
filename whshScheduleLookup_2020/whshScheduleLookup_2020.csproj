@@ -4,20 +4,21 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5812BA39-00C4-496D-81E7-00EF5AD1E716}</ProjectGuid>
+    <ProjectGuid>{F818EA3B-5E3C-4409-BB85-B14A60FB0002}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>whshScheduleLookup</RootNamespace>
-    <AssemblyName>whshScheduleLookup_2019</AssemblyName>
+    <AssemblyName>whshScheduleLookup_2020</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;R2019</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;R2020</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
@@ -26,7 +27,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;R2019</DefineConstants>
+    <DefineConstants>TRACE;R2020</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
@@ -43,53 +44,46 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="RevitAPI">
-      <HintPath>C:\_Revit dlls\2019\RevitAPI.dll</HintPath>
+      <HintPath>C:\_Revit dlls\2020\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
-      <HintPath>C:\_Revit dlls\2019\RevitAPIUI.dll</HintPath>
+      <HintPath>C:\_Revit dlls\2020\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <!--
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
-	-->
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Compile Include="..\whshScheduleLookup_2016\Commands\ScheduleLookupCommand.cs">
+    <Compile Include="..\whshschedulelookup_2016\commands\ScheduleLookupCommand.cs">
       <Link>Commands\ScheduleLookupCommand.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Contracts\TableSearchResult.cs">
+    <Compile Include="..\whshschedulelookup_2016\contracts\TableSearchResult.cs">
       <Link>Contracts\TableSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Model\ExternalCommand.cs">
+    <Compile Include="..\whshschedulelookup_2016\model\ExternalCommand.cs">
       <Link>Model\ExternalCommand.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Model\PluginException.cs">
+    <Compile Include="..\whshschedulelookup_2016\model\PluginException.cs">
       <Link>Model\PluginException.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Model\PropertyValuePair.cs">
+    <Compile Include="..\whshschedulelookup_2016\model\PropertyValuePair.cs">
       <Link>Model\PropertyValuePair.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Model\RevitModel.cs">
+    <Compile Include="..\whshschedulelookup_2016\model\RevitModel.cs">
       <Link>Model\RevitModel.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Model\ViewScheduleSearchResult.cs">
+    <Compile Include="..\whshschedulelookup_2016\model\ViewScheduleSearchResult.cs">
       <Link>Model\ViewScheduleSearchResult.cs</Link>
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\ModPlusConnector.cs">
@@ -98,72 +92,74 @@
     <Compile Include="..\whshScheduleLookup_2016\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\ViewModels\MessageViewModel.cs">
+    <Compile Include="..\whshschedulelookup_2016\viewmodels\MessageViewModel.cs">
       <Link>ViewModels\MessageViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\ViewModels\RelayCommand.cs">
+    <Compile Include="..\whshschedulelookup_2016\viewmodels\RelayCommand.cs">
       <Link>ViewModels\RelayCommand.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\ViewModels\RelayCommandGeneric.cs">
+    <Compile Include="..\whshschedulelookup_2016\viewmodels\RelayCommandGeneric.cs">
       <Link>ViewModels\RelayCommandGeneric.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\ViewModels\ResultDetailsViewModel.cs">
+    <Compile Include="..\whshschedulelookup_2016\viewmodels\ResultDetailsViewModel.cs">
       <Link>ViewModels\ResultDetailsViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\ViewModels\ResultsViewModel.cs">
+    <Compile Include="..\whshschedulelookup_2016\viewmodels\ResultsViewModel.cs">
       <Link>ViewModels\ResultsViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\ViewModels\SearchViewModel.cs">
+    <Compile Include="..\whshschedulelookup_2016\viewmodels\SearchViewModel.cs">
       <Link>ViewModels\SearchViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\ViewModels\SearchViewModelCommands.cs">
+    <Compile Include="..\whshschedulelookup_2016\viewmodels\SearchViewModelCommands.cs">
       <Link>ViewModels\SearchViewModelCommands.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Views\Converters\IntToBrushConverter.cs">
+    <Compile Include="..\whshschedulelookup_2016\views\converters\IntToBrushConverter.cs">
       <Link>Views\Converters\IntToBrushConverter.cs</Link>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Views\ResultDetailsWindow.xaml.cs">
+    <Compile Include="..\whshschedulelookup_2016\views\ResultDetailsWindow.xaml.cs">
       <Link>Views\ResultDetailsWindow.xaml.cs</Link>
       <DependentUpon>ResultDetailsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Views\ResultsWindow.xaml.cs">
+    <Compile Include="..\whshschedulelookup_2016\views\ResultsWindow.xaml.cs">
       <Link>Views\ResultsWindow.xaml.cs</Link>
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Views\SearchWindow.xaml.cs">
+    <Compile Include="..\whshschedulelookup_2016\views\SearchWindow.xaml.cs">
       <Link>Views\SearchWindow.xaml.cs</Link>
       <DependentUpon>SearchWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\whshScheduleLookup_2016\Views\YesNoCancelWindow.xaml.cs">
+    <Compile Include="..\whshschedulelookup_2016\views\YesNoCancelWindow.xaml.cs">
       <Link>Views\YesNoCancelWindow.xaml.cs</Link>
       <DependentUpon>YesNoCancelWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\whshScheduleLookup_2016\Resources\whshScheduleLookup_16x16.png">
+    <Resource Include="..\whshschedulelookup_2016\resources\whshScheduleLookup_16x16.png">
       <Link>Resources\whshScheduleLookup_16x16.png</Link>
     </Resource>
-    <Resource Include="..\whshScheduleLookup_2016\Resources\whshScheduleLookup_32x32.png">
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\whshschedulelookup_2016\resources\whshScheduleLookup_32x32.png">
       <Link>Resources\whshScheduleLookup_32x32.png</Link>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\whshScheduleLookup_2016\Views\ResultDetailsWindow.xaml">
+    <Page Include="..\whshschedulelookup_2016\views\ResultDetailsWindow.xaml">
       <Link>Views\ResultDetailsWindow.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\whshScheduleLookup_2016\Views\ResultsWindow.xaml">
+    <Page Include="..\whshschedulelookup_2016\views\ResultsWindow.xaml">
       <Link>Views\ResultsWindow.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\whshScheduleLookup_2016\Views\SearchWindow.xaml">
+    <Page Include="..\whshschedulelookup_2016\views\SearchWindow.xaml">
       <Link>Views\SearchWindow.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\whshScheduleLookup_2016\Views\YesNoCancelWindow.xaml">
+    <Page Include="..\whshschedulelookup_2016\views\YesNoCancelWindow.xaml">
       <Link>Views\YesNoCancelWindow.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
