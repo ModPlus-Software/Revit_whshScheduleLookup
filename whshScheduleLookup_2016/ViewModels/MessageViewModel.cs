@@ -1,10 +1,9 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using ModPlusAPI;
-
-namespace whshScheduleLookup.ViewModels
+﻿namespace whshScheduleLookup.ViewModels
 {
-    public class MessageViewModel : INotifyPropertyChanged
+    using ModPlusAPI;
+    using ModPlusAPI.Mvvm;
+
+    public class MessageViewModel : VmBase
     {
         private const string LangItem = "whshScheduleLookup";
 
@@ -12,16 +11,21 @@ namespace whshScheduleLookup.ViewModels
         private string _title;
 
         public string OkButtonName { get; set; } = Language.GetItem(LangItem, "ok");
+
         public string NoButtonName { get; set; } = Language.GetItem(LangItem, "no");
+
         public string CancelButtonName { get; set; } = Language.GetItem(LangItem, "cancel");
+
         public bool OkButtonVisibility { get; set; } = true;
+
         public bool NoButtonVisibility { get; set; }
+
         public bool CancelButtonVisibility { get; set; } 
+
         public bool? Result { get; set; }
 
         public MessageViewModel()
         {
-             
         }
 
         public MessageViewModel(string message)
@@ -34,8 +38,6 @@ namespace whshScheduleLookup.ViewModels
             Title = title;
             Message = message;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Message
         {
@@ -55,11 +57,6 @@ namespace whshScheduleLookup.ViewModels
                 _title = value;
                 OnPropertyChanged();
             }
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

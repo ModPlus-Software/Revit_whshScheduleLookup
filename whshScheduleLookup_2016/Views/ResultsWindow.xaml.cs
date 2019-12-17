@@ -1,11 +1,11 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using whshScheduleLookup.Model;
-using whshScheduleLookup.ViewModels;
-
-namespace whshScheduleLookup.Views
+﻿namespace whshScheduleLookup.Views
 {
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using whshScheduleLookup.Model;
+    using whshScheduleLookup.ViewModels;
+
     public partial class ResultsWindow
     {
         private const string LangItem = "whshScheduleLookup";
@@ -18,8 +18,10 @@ namespace whshScheduleLookup.Views
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (!(sender is DataGrid dataGrid)) return;
-            if (!(dataGrid.SelectedItem is ViewScheduleSearchResult result)) return;
+            if (!(sender is DataGrid dataGrid))
+                return;
+            if (!(dataGrid.SelectedItem is ViewScheduleSearchResult result))
+                return;
             var resultDetailsViewModel = new ResultDetailsViewModel(result);
             var resultDetailsWindow = new ResultDetailsWindow(resultDetailsViewModel);
 

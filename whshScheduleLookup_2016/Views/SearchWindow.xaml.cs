@@ -1,22 +1,18 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Navigation;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-using MouseEventArgs = System.Windows.Input.MouseEventArgs;
-using SearchViewModel = whshScheduleLookup.ViewModels.SearchViewModel;
-
-namespace whshScheduleLookup.Views
+﻿namespace whshScheduleLookup.Views
 {
+    using System;
+    using System.Diagnostics;
+    using System.Runtime.InteropServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Navigation;
+    using ViewModels;
 
     public partial class SearchWindow 
     {
-        private IntPtr _thisWindowIntPtr;
         private readonly IntPtr _revitWindowPtr;
+
         /// <summary>
         /// The GetForegroundWindow function returns a 
         /// handle to the foreground window.
@@ -35,18 +31,17 @@ namespace whshScheduleLookup.Views
         {
             InitializeComponent();
             
-            _thisWindowIntPtr = new WindowInteropHelper(this).Handle;
             DataContext = searchViewModel;
 
             Process[] processes = Process.GetProcessesByName("Revit");
-            if (0 < processes.Length) _revitWindowPtr = processes[0].MainWindowHandle;
+            if (processes.Length > 0)
+                _revitWindowPtr = processes[0].MainWindowHandle;
         }
         
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
 
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
@@ -69,7 +64,6 @@ namespace whshScheduleLookup.Views
         private void Run_Click(object sender, RoutedEventArgs e)
         {
             Topmost = true;
-            //ResetProgressBar();
             try
             {
                 IntPtr hBefore = GetForegroundWindow();
@@ -78,8 +72,9 @@ namespace whshScheduleLookup.Views
             }
             catch
             {
-                //ignored
+                // ignored
             }
+
             Topmost = false;
         }
 

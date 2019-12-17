@@ -1,9 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using whshScheduleLookup.ViewModels;
-
-namespace whshScheduleLookup.Views
+﻿namespace whshScheduleLookup.Views
 {
+    using System.Windows;
+    using System.Windows.Input;
+    using ViewModels;
+
     public partial class YesNoCancelWindow
     {
         public YesNoCancelWindow()

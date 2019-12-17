@@ -1,11 +1,11 @@
-﻿using System;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using ModPlusAPI;
-using ModPlusAPI.Windows;
-
-namespace whshScheduleLookup.Model
+﻿namespace whshScheduleLookup.Model
 {
+    using System;
+    using Autodesk.Revit.DB;
+    using Autodesk.Revit.UI;
+    using ModPlusAPI;
+    using ModPlusAPI.Windows;
+
     public class ExternalCommand : IExternalEventHandler
     {
         private const string LangItem = "whshScheduleLookup";
@@ -44,22 +44,25 @@ namespace whshScheduleLookup.Model
         {
             if (_doAction != null)
             {
-                if (_doc == null) _doc = app.ActiveUIDocument.Document;
-                
-                    try
-                    {
-                        _doAction();
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        MessageBox.Show(Language.GetItem(LangItem, "h9"), MessageBoxIcon.Alert);
-                    }
+                if (_doc == null)
+                    _doc = app.ActiveUIDocument.Document;
+
+                try
+                {
+                    _doAction();
+                }
+                catch (OperationCanceledException)
+                {
+                    MessageBox.Show(Language.GetItem(LangItem, "h9"), MessageBoxIcon.Alert);
+                }
             }
+
             _doAction = null;
             if (_doFunc != null)
             {
                 object result = null;
-                if (_doc == null) _doc = app.ActiveUIDocument.Document;
+                if (_doc == null)
+                    _doc = app.ActiveUIDocument.Document;
 
                 using (Transaction t = new Transaction(_doc, _tName))
                 {
@@ -75,8 +78,10 @@ namespace whshScheduleLookup.Model
                         MessageBox.Show(Language.GetItem(LangItem, "h9"), MessageBoxIcon.Alert);
                     }
                 }
+
                 _postAction(result);
             }
+
             _doFunc = null;
         }
 

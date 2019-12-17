@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{14DF62D1-A72D-4E1A-8F91-2257D6102E28}</ProjectGuid>
+    <ProjectGuid>{5812BA39-00C4-496D-81E7-00EF5AD1E716}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>whshScheduleLookup</RootNamespace>
-    <AssemblyName>whshScheduleLookup_2017</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AssemblyName>whshScheduleLookup_2019</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;R2017</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;R2019</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
@@ -26,21 +26,57 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;R2017</DefineConstants>
+    <DefineConstants>TRACE;R2019</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>$(SolutionDir)\ModPlus.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdWindows, Version=2017.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModPlus.Revit.API.2019.1.0.0\lib\AdWindows.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="ModPlusAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModPlusAPI.1.3.1\lib\ModPlusAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="ModPlusService.Dto, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModPlusAPI.1.3.1\lib\ModPlusService.Dto.dll</HintPath>
+    </Reference>
+    <Reference Include="ModPlusStyle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModPlusStyle.1.3.0\lib\ModPlusStyle.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="RevitAPI, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\ModPlus.Revit.API.2019.1.0.0\lib\RevitAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="RevitAPIUI, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\ModPlus.Revit.API.2019.1.0.0\lib\RevitAPIUI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+    <!--
+    
+    <Reference Include="System.Core"/>
+    <Reference Include="System.Xml.Linq"/>
+    <Reference Include="System.Data.DataSetExtensions"/>
+    
+    
+    <Reference Include="Microsoft.CSharp"/>
+    
+    <Reference Include="System.Data"/>
+    
+    <Reference Include="System.Net.Http"/>
+    
+    <Reference Include="System.Xml"/>
+	-->
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\whshScheduleLookup_2016\Commands\ScheduleLookupCommand.cs">
@@ -51,6 +87,9 @@
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\Model\ExternalCommand.cs">
       <Link>Model\ExternalCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\whshScheduleLookup_2016\Model\PluginException.cs">
+      <Link>Model\PluginException.cs</Link>
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\Model\PropertyValuePair.cs">
       <Link>Model\PropertyValuePair.cs</Link>
@@ -69,6 +108,12 @@
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\ViewModels\MessageViewModel.cs">
       <Link>ViewModels\MessageViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\whshScheduleLookup_2016\ViewModels\RelayCommand.cs">
+      <Link>ViewModels\RelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\whshScheduleLookup_2016\ViewModels\RelayCommandGeneric.cs">
+      <Link>ViewModels\RelayCommandGeneric.cs</Link>
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\ViewModels\ResultDetailsViewModel.cs">
       <Link>ViewModels\ResultDetailsViewModel.cs</Link>
@@ -103,6 +148,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\whshScheduleLookup_2016\Resources\whshScheduleLookup_16x16.png">
+      <Link>Resources\whshScheduleLookup_16x16.png</Link>
+    </Resource>
+    <Resource Include="..\whshScheduleLookup_2016\Resources\whshScheduleLookup_32x32.png">
+      <Link>Resources\whshScheduleLookup_32x32.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
     <Page Include="..\whshScheduleLookup_2016\Views\ResultDetailsWindow.xaml">
       <Link>Views\ResultDetailsWindow.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -125,31 +178,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\whshScheduleLookup_2016\Resources\whshScheduleLookup_16x16.png">
-      <Link>Resources\whshScheduleLookup_16x16.png</Link>
-    </Resource>
-    <Resource Include="..\whshScheduleLookup_2016\Resources\whshScheduleLookup_32x32.png">
-      <Link>Resources\whshScheduleLookup_32x32.png</Link>
-    </Resource>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ModPlus.Revit.API.2017">
-      <Version>1.0.0</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="ModPlusAPI">
-      <Version>1.3.1</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="ModPlusStyle">
-      <Version>1.3.0</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers">
-      <Version>1.1.118</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

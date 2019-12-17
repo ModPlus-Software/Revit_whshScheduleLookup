@@ -31,14 +31,35 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>$(SolutionDir)\ModPlus.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdWindows, Version=2015.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModPlus.Revit.API.2017.1.0.0\lib\AdWindows.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="ModPlusAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModPlusAPI.1.3.1\lib\ModPlusAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="ModPlusService.Dto, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModPlusAPI.1.3.1\lib\ModPlusService.Dto.dll</HintPath>
+    </Reference>
+    <Reference Include="ModPlusStyle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModPlusStyle.1.3.0\lib\ModPlusStyle.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="RevitAPI, Version=17.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\ModPlus.Revit.API.2017.1.0.0\lib\RevitAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="RevitAPIUI, Version=17.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\ModPlus.Revit.API.2017.1.0.0\lib\RevitAPIUI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -51,6 +72,9 @@
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\Model\ExternalCommand.cs">
       <Link>Model\ExternalCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\whshScheduleLookup_2016\Model\PluginException.cs">
+      <Link>Model\PluginException.cs</Link>
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\Model\PropertyValuePair.cs">
       <Link>Model\PropertyValuePair.cs</Link>
@@ -69,6 +93,12 @@
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\ViewModels\MessageViewModel.cs">
       <Link>ViewModels\MessageViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\whshScheduleLookup_2016\ViewModels\RelayCommand.cs">
+      <Link>ViewModels\RelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\whshScheduleLookup_2016\ViewModels\RelayCommandGeneric.cs">
+      <Link>ViewModels\RelayCommandGeneric.cs</Link>
     </Compile>
     <Compile Include="..\whshScheduleLookup_2016\ViewModels\ResultDetailsViewModel.cs">
       <Link>ViewModels\ResultDetailsViewModel.cs</Link>
@@ -133,23 +163,11 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ModPlus.Revit.API.2017">
-      <Version>1.0.0</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="ModPlusAPI">
-      <Version>1.3.1</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="ModPlusStyle">
-      <Version>1.3.0</Version>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers">
-      <Version>1.1.118</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

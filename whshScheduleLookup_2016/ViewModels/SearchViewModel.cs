@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Autodesk.Revit.DB;
-using ModPlusAPI;
-using whshScheduleLookup.Model;
-
-namespace whshScheduleLookup.ViewModels
+﻿namespace whshScheduleLookup.ViewModels
 {
-    public partial class SearchViewModel : INotifyPropertyChanged
+    using System.Collections.Generic;
+    using Autodesk.Revit.DB;
+    using Model;
+    using ModPlusAPI;
+    using ModPlusAPI.Mvvm;
+
+    public partial class SearchViewModel : VmBase
     {
         private const string LangItem = "whshScheduleLookup";
+
         #region Static data
 
         private readonly string _emptySearchErrMess = " nothing entered yet";
@@ -19,26 +19,43 @@ namespace whshScheduleLookup.ViewModels
         private readonly string _schedulesNumberFoundMess = " schedules found: ";
 
         public string AssemblyVersion { get; set; }
+
         public string WindowTitle { get; set; } = "Find in Tables";
-        public string AddText { get; set; } = "that must present in table"; //которые вместе должны присутствовать в таблице
+
+        public string AddText { get; set; } = "that must present in table"; // которые вместе должны присутствовать в таблице
+
         public string FindButtonName { get; set; } = "Find";
+
         public string ResetButtonName { get; set; } = "Clean";
+
         public string CancelButtonName { get; set; } = "Cancel";
+
         public string DelimiterText { get; set; } = "delimiter\n symbol"; // разделитель&#x0a;значений
+
         public string PartialSearchText { get; set; } = "search substring";
+
         public string IgnoreCaseText { get; set; } = "ignore case";
+
         public string SearchText { get; set; } = "Search for";
+
         public string FieldText { get; set; } = "field name";
+
         public string ColumnText { get; set; } = "column name";
+
         public string ValueText { get; set; } = "cell value";
+
         public string HeaderText { get; set; } = "header value";
+
         public string PercentCompleteMess { get; set; } = "% completed...";
+
         public string StatusText { get; set; } = "STATE: ";
+
         public string SearchBarTooltip { get; set; } = "Press spacebar twice to insert delimeter";
 
         #endregion
 
         public RevitModel RevitModel { get; set; }
+
         private bool _selectionInProgress;
         private string _stateMessage;
         private bool _solutionExists;
@@ -69,7 +86,8 @@ namespace whshScheduleLookup.ViewModels
             get => _solutionExists;
             set
             {
-                if (value == _solutionExists) return;
+                if (value == _solutionExists)
+                    return;
                 _solutionExists = value;
                 OnPropertyChanged();
             }
@@ -80,7 +98,6 @@ namespace whshScheduleLookup.ViewModels
             get => _stateMessage;
             set
             {
-                //if (value == _stateMessage) return;
                 _stateMessage = StatusText + " " + value;
                 OnPropertyChanged();
             }
@@ -91,7 +108,8 @@ namespace whshScheduleLookup.ViewModels
             get => _selectionInProgress;
             set
             {
-                if (value == _selectionInProgress) return;
+                if (value == _selectionInProgress)
+                    return;
                 _selectionInProgress = value;
                 OnPropertyChanged();
             }
@@ -107,55 +125,47 @@ namespace whshScheduleLookup.ViewModels
             }
         }
 
-        public SearchViewModel() { }
-
         public SearchViewModel(RevitModel revitModel)
         {
-            this.RevitModel = revitModel;
-            //if (revitModel.IsRus)
-            //{
-            _emptySearchErrMess = Language.GetItem(LangItem, "h10");// "ничего не введено для поиска";
-            _pressFindMess = Language.GetItem(LangItem, "h11"); //"нажмите \"Найти\" для продолжения";
-            _refreshSearchMess = Language.GetItem(LangItem, "h12"); //"Нажмите \"Найти\" для актуализации!";
-            _noSchedulesFoundMess = Language.GetItem(LangItem, "h13"); //"не найдено подходящих таблиц!";
-            _schedulesNumberFoundMess = Language.GetItem(LangItem, "h14"); //" таблиц найдено: ";
+            RevitModel = revitModel;
+            _emptySearchErrMess = Language.GetItem(LangItem, "h10"); // "ничего не введено для поиска";
+            _pressFindMess = Language.GetItem(LangItem, "h11"); // "нажмите \"Найти\" для продолжения";
+            _refreshSearchMess = Language.GetItem(LangItem, "h12"); // "Нажмите \"Найти\" для актуализации!";
+            _noSchedulesFoundMess = Language.GetItem(LangItem, "h13"); // "не найдено подходящих таблиц!";
+            _schedulesNumberFoundMess = Language.GetItem(LangItem, "h14"); // " таблиц найдено: ";
 
-            WindowTitle = Language.GetItem(LangItem, "h15"); //"ПОИСК В ТАБЛИЦАХ";
-            AddText = Language.GetItem(LangItem, "h16"); //"\nкоторые должны присутствовать в таблице";
-            FindButtonName = Language.GetItem(LangItem, "find"); //"Найти";
-            ResetButtonName = Language.GetItem(LangItem, "clean"); //"Очистить";
-            CancelButtonName = Language.GetItem(LangItem, "cancel"); //"Отмена";
-            DelimiterText = Language.GetItem(LangItem, "h17"); //"символ-\nразделитель"; //
-            PartialSearchText = Language.GetItem(LangItem, "h18"); //"подстрока";
-            IgnoreCaseText = Language.GetItem(LangItem, "h19"); //"учитывать регистр";
-            SearchText = Language.GetItem(LangItem, "h20"); //"Искать";
-            FieldText = Language.GetItem(LangItem, "h21"); //"поле";
-            ColumnText = Language.GetItem(LangItem, "h22"); //"заголовок";
-            ValueText = Language.GetItem(LangItem, "h23"); //"значение";
-            HeaderText = Language.GetItem(LangItem, "h24"); //"шапка";
-            PercentCompleteMess = Language.GetItem(LangItem, "h25"); //"% обработано...";
-            StatusText = Language.GetItem(LangItem, "h26"); //"СТАТУС: ";
-            SearchBarTooltip = Language.GetItem(LangItem, "h27") + "\"" + Delimeter + "\""; //$"Нажмите пробел дважды, чтобы вставить \"{Delimeter}\"";
-            //}
+            WindowTitle = Language.GetItem(LangItem, "h15"); // "ПОИСК В ТАБЛИЦАХ";
+            AddText = Language.GetItem(LangItem, "h16"); // "\nкоторые должны присутствовать в таблице";
+            FindButtonName = Language.GetItem(LangItem, "find"); // "Найти";
+            ResetButtonName = Language.GetItem(LangItem, "clean"); // "Очистить";
+            CancelButtonName = Language.GetItem(LangItem, "cancel"); // "Отмена";
+            DelimiterText = Language.GetItem(LangItem, "h17"); // "символ-\nразделитель"; //
+            PartialSearchText = Language.GetItem(LangItem, "h18"); // "подстрока";
+            IgnoreCaseText = Language.GetItem(LangItem, "h19"); // "учитывать регистр";
+            SearchText = Language.GetItem(LangItem, "h20"); // "Искать";
+            FieldText = Language.GetItem(LangItem, "h21"); // "поле";
+            ColumnText = Language.GetItem(LangItem, "h22"); // "заголовок";
+            ValueText = Language.GetItem(LangItem, "h23"); // "значение";
+            HeaderText = Language.GetItem(LangItem, "h24"); // "шапка";
+            PercentCompleteMess = Language.GetItem(LangItem, "h25"); // "% обработано...";
+            StatusText = Language.GetItem(LangItem, "h26"); // "СТАТУС: ";
+            SearchBarTooltip = Language.GetItem(LangItem, "h27") + "\"" + Delimeter + "\""; // $"Нажмите пробел дважды, чтобы вставить \"{Delimeter}\"";
+
             StateMessage = _emptySearchErrMess;
             SearchFinished = true;
-            
+
             IsParameterName = !bool.TryParse(
-                UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "whshScheduleLookup", nameof(IsParameterName)),
-                out var b) || b; // default - true
+                UserConfigFile.GetValue("whshScheduleLookup", nameof(IsParameterName)), out var b) || b; // default - true
             IsHeadingName = bool.TryParse(
-                UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "whshScheduleLookup", nameof(IsHeadingName)),
-                out b) && b; // default - false
+                UserConfigFile.GetValue("whshScheduleLookup", nameof(IsHeadingName)), out b) && b; // default - false
             IsCellValue = bool.TryParse(
-                UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "whshScheduleLookup", nameof(IsCellValue)),
-                out b) && b; // default - false
+                UserConfigFile.GetValue("whshScheduleLookup", nameof(IsCellValue)), out b) && b; // default - false
             IgnoreCase = bool.TryParse(
-                UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "whshScheduleLookup", nameof(IgnoreCase)),
-                out b) && b; // default - false
+                UserConfigFile.GetValue("whshScheduleLookup", nameof(IgnoreCase)), out b) && b; // default - false
             PartialSearch = bool.TryParse(
-                UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings, "whshScheduleLookup", nameof(PartialSearch)),
-                out b) && b; // default - false
-            var delimeter = UserConfigFile.GetValue(UserConfigFile.ConfigFileZone.Settings,
+                UserConfigFile.GetValue("whshScheduleLookup", nameof(PartialSearch)), out b) && b; // default - false
+            var delimeter = UserConfigFile.GetValue(
+                UserConfigFile.ConfigFileZone.Settings,
                 "whshScheduleLookup", nameof(Delimeter));
             Delimeter = string.IsNullOrEmpty(delimeter) ? ";" : delimeter;
 
@@ -170,7 +180,6 @@ namespace whshScheduleLookup.ViewModels
             get => _progress;
             set
             {
-                //if (value == _progress) return;
                 _progress = value;
                 OnPropertyChanged();
             }
@@ -181,7 +190,8 @@ namespace whshScheduleLookup.ViewModels
             get => _enteredNames;
             set
             {
-                if (value == _enteredNames) return;
+                if (value == _enteredNames)
+                    return;
                 _enteredNames = value;
                 OnPropertyChanged();
             }
@@ -192,7 +202,8 @@ namespace whshScheduleLookup.ViewModels
             get => _enteredNamesAreValid;
             set
             {
-                if (value == _enteredNamesAreValid) return;
+                if (value == _enteredNamesAreValid)
+                    return;
                 _enteredNamesAreValid = value;
                 OnPropertyChanged();
             }
@@ -203,7 +214,8 @@ namespace whshScheduleLookup.ViewModels
             get => _enteredNamesString;
             set
             {
-                if (value == _enteredNamesString) return;
+                if (value == _enteredNamesString)
+                    return;
                 _enteredNamesString = value;
                 OnPropertyChanged();
                 Update();
@@ -223,11 +235,13 @@ namespace whshScheduleLookup.ViewModels
             get => _isParameterName;
             set
             {
-                if (value == _isParameterName) return;
+                if (value == _isParameterName)
+                    return;
                 _isParameterName = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings,
+                UserConfigFile.SetValue(
+                    UserConfigFile.ConfigFileZone.Settings,
                     "whshScheduleLookup", nameof(IsParameterName), value.ToString(), true);
             }
         }
@@ -243,25 +257,21 @@ namespace whshScheduleLookup.ViewModels
             {
                 StateMessage = _emptySearchErrMess;
             }
-            //if (IsParameterName) { LabelName = $"Enter field (or parameter) names delimited by \"{Delimeter}\" \nthat a table should contain"; }
-            //if (IsHeadingName) { LabelName = $"Enter heading names delimited by \"{Delimeter}\" \nthat a table should contain"; }
-            //if (IsCellValue) { LabelName = $"Enter cell values delimited by \"{Delimeter}\" \nthat a table should contain"; }
-            //LabelName = $"Enter names or values delimited by \"{Delimeter}\" that a table should contain";
-            //if (RevitModel.IsRus)
-            //{
-                if (IsParameterName)
-                {
-                    LabelName = Language.GetItem(LangItem, "h28") + $" \"{Delimeter}\",\n" + AddText;
-                }
-                if (IsHeadingName)
-                {
-                    LabelName = Language.GetItem(LangItem, "h29") + $" \"{Delimeter}\",\n"  + AddText;
-                }
-                if (IsCellValue)
-                {
-                    LabelName = Language.GetItem(LangItem, "h30") + $" \"{Delimeter}\",\n" + AddText;
-                }
-            //}
+
+            if (IsParameterName)
+            {
+                LabelName = Language.GetItem(LangItem, "h28") + $" \"{Delimeter}\",\n" + AddText;
+            }
+
+            if (IsHeadingName)
+            {
+                LabelName = Language.GetItem(LangItem, "h29") + $" \"{Delimeter}\",\n" + AddText;
+            }
+
+            if (IsCellValue)
+            {
+                LabelName = Language.GetItem(LangItem, "h30") + $" \"{Delimeter}\",\n" + AddText;
+            }
         }
 
         public string Delimeter
@@ -269,11 +279,13 @@ namespace whshScheduleLookup.ViewModels
             get => _delimeter;
             set
             {
-                if (value == _delimeter) return;
+                if (value == _delimeter)
+                    return;
                 _delimeter = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings,
+                UserConfigFile.SetValue(
+                    UserConfigFile.ConfigFileZone.Settings,
                     "whshScheduleLookup", nameof(Delimeter), value, true);
             }
         }
@@ -283,11 +295,13 @@ namespace whshScheduleLookup.ViewModels
             get => _isHeadingName;
             set
             {
-                if (value == _isHeadingName) return;
+                if (value == _isHeadingName)
+                    return;
                 _isHeadingName = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings,
+                UserConfigFile.SetValue(
+                    UserConfigFile.ConfigFileZone.Settings,
                     "whshScheduleLookup", nameof(IsHeadingName), value.ToString(), true);
             }
         }
@@ -297,11 +311,13 @@ namespace whshScheduleLookup.ViewModels
             get => _isCellValue;
             set
             {
-                if (value == _isCellValue) return;
+                if (value == _isCellValue)
+                    return;
                 _isCellValue = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings,
+                UserConfigFile.SetValue(
+                    UserConfigFile.ConfigFileZone.Settings,
                     "whshScheduleLookup", nameof(IsCellValue), value.ToString(), true);
             }
         }
@@ -311,7 +327,8 @@ namespace whshScheduleLookup.ViewModels
             get => _isHeader;
             set
             {
-                if (value == _isHeader) return;
+                if (value == _isHeader)
+                    return;
                 _isHeader = value;
                 OnPropertyChanged();
                 Update();
@@ -323,11 +340,13 @@ namespace whshScheduleLookup.ViewModels
             get => _ignoreCase;
             set
             {
-                if (value == _ignoreCase) return;
+                if (value == _ignoreCase)
+                    return;
                 _ignoreCase = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings,
+                UserConfigFile.SetValue(
+                    UserConfigFile.ConfigFileZone.Settings,
                     "whshScheduleLookup", nameof(IgnoreCase), value.ToString(), true);
             }
         }
@@ -337,11 +356,13 @@ namespace whshScheduleLookup.ViewModels
             get => _partialSearch;
             set
             {
-                if (value == _partialSearch) return;
+                if (value == _partialSearch)
+                    return;
                 _partialSearch = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(UserConfigFile.ConfigFileZone.Settings,
+                UserConfigFile.SetValue(
+                    UserConfigFile.ConfigFileZone.Settings,
                     "whshScheduleLookup", nameof(PartialSearch), value.ToString(), true);
             }
         }
@@ -351,7 +372,8 @@ namespace whshScheduleLookup.ViewModels
             get => _labelName;
             set
             {
-                if (value == _labelName) return;
+                if (value == _labelName)
+                    return;
                 _labelName = value;
                 OnPropertyChanged();
             }
@@ -362,17 +384,10 @@ namespace whshScheduleLookup.ViewModels
             get => _allModelSchedules;
             set
             {
-                if (value == _allModelSchedules) return;
+                if (value == _allModelSchedules)
+                    return;
                 _allModelSchedules = value;
                 OnPropertyChanged();
-                //if (_allModelSchedules == null || _allModelSchedules.Count == 0)
-                //{
-                //    //StateMessage = "не найдено таблиц в документе!";
-                //}
-                //else
-                //{
-                //    //StateMessage = $"найдено {_allModelSchedules.Count} таблиц!";
-                //}
             }
         }
 
@@ -383,16 +398,6 @@ namespace whshScheduleLookup.ViewModels
             {
                 _foundSchedules = value;
                 OnPropertyChanged();
-                if (_foundSchedules == null || _foundSchedules.Count == 0)
-                {
-                    //StateMessage = noSchedulesFoundMess;
-                    //ExpanderState = System.Windows.Visibility.Collapsed;
-                }
-                else
-                {
-                    //StateMessage = _foundResults.Count + schedulesNumberFoundMess;
-                    //ExpanderState = System.Windows.Visibility.Visible;
-                }
             }
         }
 
@@ -406,12 +411,10 @@ namespace whshScheduleLookup.ViewModels
                 if (_foundResults == null || _foundResults.Count == 0)
                 {
                     StateMessage = _noSchedulesFoundMess;
-                    //ExpanderState = System.Windows.Visibility.Collapsed;
                 }
                 else
                 {
                     StateMessage = _schedulesNumberFoundMess + " " + _foundResults.Count;
-                    //ExpanderState = System.Windows.Visibility.Visible;
                 }
             }
         }
@@ -431,19 +434,11 @@ namespace whshScheduleLookup.ViewModels
             get => _expanderState;
             set
             {
-                if (value == _expanderState) return;
+                if (value == _expanderState)
+                    return;
                 _expanderState = value;
                 OnPropertyChanged();
             }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        //[NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
