@@ -20,3 +20,6 @@ Determine whether specified value comes from a key schedule and key schedule nam
 All of the above searches can be done ignoring the value case or knowing only a part of the value.
 ### Plugin card ###
 https://modplus.org/revitplugins/whshschedulelookup
+### This project uses
+
+[<img align="left" src="https://raw.githubusercontent.com/ModPlus-Software/Documentation/master/Images/nuke-logo-small.png" />](https://nuke.build/)
