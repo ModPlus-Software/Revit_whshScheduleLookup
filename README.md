@@ -1,7 +1,7 @@
 # whshScheduleLookup
 Search for schedules in a project that contain the specified value
 ### Product ###
-Revit >= 2016
+Revit >= 2017
 ### Description ###
 The function allows:
 
