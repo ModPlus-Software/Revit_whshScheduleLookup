@@ -350,7 +350,7 @@
                             res.FieldParameterName = GetNameById(viewSchedule.Document, fieldParamId);
                             if (paramId.IntegerValue == (int)BuiltInParameter.REF_TABLE_ELEM_NAME)
                             {
-#if R2016 || R2017 || R2018
+#if R2017 || R2018
                                 res.FromKeyScheduleNamed = viewSchedule.ViewName;
 #else
                                 res.FromKeyScheduleNamed = viewSchedule.Name;

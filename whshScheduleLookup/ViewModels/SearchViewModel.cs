@@ -164,9 +164,7 @@
                 UserConfigFile.GetValue("whshScheduleLookup", nameof(IgnoreCase)), out b) && b; // default - false
             PartialSearch = bool.TryParse(
                 UserConfigFile.GetValue("whshScheduleLookup", nameof(PartialSearch)), out b) && b; // default - false
-            var delimeter = UserConfigFile.GetValue(
-                UserConfigFile.ConfigFileZone.Settings,
-                "whshScheduleLookup", nameof(Delimeter));
+            var delimeter = UserConfigFile.GetValue("whshScheduleLookup", nameof(Delimeter));
             Delimeter = string.IsNullOrEmpty(delimeter) ? ";" : delimeter;
 
             AssemblyVersion = revitModel.GetType().Assembly.GetName().Version.ToString();
@@ -240,9 +238,7 @@
                 _isParameterName = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(
-                    UserConfigFile.ConfigFileZone.Settings,
-                    "whshScheduleLookup", nameof(IsParameterName), value.ToString(), true);
+                UserConfigFile.SetValue("whshScheduleLookup", nameof(IsParameterName), value.ToString(), true);
             }
         }
 
@@ -284,9 +280,7 @@
                 _delimeter = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(
-                    UserConfigFile.ConfigFileZone.Settings,
-                    "whshScheduleLookup", nameof(Delimeter), value, true);
+                UserConfigFile.SetValue("whshScheduleLookup", nameof(Delimeter), value, true);
             }
         }
 
@@ -300,9 +294,7 @@
                 _isHeadingName = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(
-                    UserConfigFile.ConfigFileZone.Settings,
-                    "whshScheduleLookup", nameof(IsHeadingName), value.ToString(), true);
+                UserConfigFile.SetValue("whshScheduleLookup", nameof(IsHeadingName), value.ToString(), true);
             }
         }
 
@@ -316,9 +308,7 @@
                 _isCellValue = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(
-                    UserConfigFile.ConfigFileZone.Settings,
-                    "whshScheduleLookup", nameof(IsCellValue), value.ToString(), true);
+                UserConfigFile.SetValue("whshScheduleLookup", nameof(IsCellValue), value.ToString(), true);
             }
         }
 
@@ -345,9 +335,7 @@
                 _ignoreCase = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(
-                    UserConfigFile.ConfigFileZone.Settings,
-                    "whshScheduleLookup", nameof(IgnoreCase), value.ToString(), true);
+                UserConfigFile.SetValue("whshScheduleLookup", nameof(IgnoreCase), value.ToString(), true);
             }
         }
 
@@ -361,9 +349,7 @@
                 _partialSearch = value;
                 OnPropertyChanged();
                 Update();
-                UserConfigFile.SetValue(
-                    UserConfigFile.ConfigFileZone.Settings,
-                    "whshScheduleLookup", nameof(PartialSearch), value.ToString(), true);
+                UserConfigFile.SetValue("whshScheduleLookup", nameof(PartialSearch), value.ToString(), true);
             }
         }
 
